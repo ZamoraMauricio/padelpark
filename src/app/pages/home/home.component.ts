@@ -21,19 +21,28 @@ export class HomeComponent  {
   productSub:Subscription | undefined;
 
 
-  constructor(private cartService: CartService,private raquetaService:RaquetasService) {}
+  constructor(private cartService: CartService,private raquetaService:RaquetasService) {
+    this.searchRaqueta();
+  }
+/*
   ngOnInit():void{
     this.getProducts();
-  }
-  getProducts () :void{
-    this.productSub=this.raquetaService.getRaquetasFromDB().subscribe((raquetas) => {
-      this.products = raquetas;
-    });
+  }*/
+  public get Products () :Product[]{
+    return this.raquetaService.raquetas;
   }
 
   onColumnsCountChange(colsNum: number): void {
     this.cols = colsNum;
     this.rowHeight = ROW_HEIGHT[this.cols];
+  }
+
+
+
+public getProducts () :void{
+    this.productSub=this.raquetaService.getRaquetasFromDB().subscribe((raquetas) => {
+      this.products = raquetas;
+    });
   }
 
   onShowCategory(newCategory: string): void {
@@ -46,6 +55,20 @@ export class HomeComponent  {
   onSortChange(newSort:string):void{
     this.sort = newSort;
     this.getProducts();
+  }
+
+  private searchRaqueta(searchTerm: string = ""): void {
+    this.raquetaService.fetchRaquetasFromApi(searchTerm).subscribe(
+      {
+        next: (response: any) => {
+          console.log(response);
+          this.raquetaService.raquetas = response.raquetaList;
+        },
+        error: (error: any) => {
+          console.log(error);
+        },
+      }
+    )
   }
 
   onAddToCart(product: Product): void {

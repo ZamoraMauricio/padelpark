@@ -11,14 +11,14 @@ export class RaquetasService {
   public raquetas: Product[] = [];
   constructor(private http: HttpClient) {
   }
-  /*
+  
   fetchRaquetasFromApi(searchTerm: string): Observable<any> {
     return this.http.get(`http://localhost:8082/api/raquetas?searchTerm=${searchTerm}`);
 }
-*/
+
   getRaquetasFromDB(): Observable<Array<Product>>{
     return this.http.get<Array<Product>>(
-      "http://localhost:8082/api/raquetas/"
+      "http://localhost:8082/api/raquetas?searchTerm=${searchTerm}"
     )
   }
   getGorrasFromDB(): Observable<Array<Product>>{
