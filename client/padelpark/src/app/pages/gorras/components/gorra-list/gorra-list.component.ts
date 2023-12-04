@@ -112,7 +112,7 @@ export class GorraListComponent {
   public updateGorra(): void {
     console.log(this.newUpdateGorra);
 
-    this.gorraService.updateDoctorById(this.newUpdateGorra).subscribe(
+    this.gorraService.updateGorraById(this.newUpdateGorra).subscribe(
       {
         next: (response: any) => {
       

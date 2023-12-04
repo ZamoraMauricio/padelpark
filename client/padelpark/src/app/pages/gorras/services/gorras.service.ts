@@ -28,7 +28,7 @@ export class GorrasService {
     return this.http.get(`http://localhost:8080/api/gorras/${id}`);
   }
 
-  updateDoctorById(gorra: Gorra): Observable<any> {
+  updateGorraById(gorra: Gorra): Observable<any> {
     const gorraId = gorra._id;
 
     const { _id, ...gorraSinId } = gorra;
