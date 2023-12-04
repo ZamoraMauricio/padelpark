@@ -1,46 +1,36 @@
 const { request, response } = require("express");
 const Raqueta = require("../models/raqueta");
 
-const RaquetaList =[];
 const getAllRaquetas = (req = request, res = response) => {
     const { searchTerm } = req.query;
-    Raqueta.find({title: RegExp(searchTerm)}).then(// RegExp sirve para crear expresiones regulares 
-        (result)=>{
+    Raqueta.find({ title: RegExp(searchTerm) }).then(
+        (result) => {
             res.status(200).json({
-                RaquetaList: result,
-           
+                raquetaList: result,
             });
         }
-
     ).catch(
-        (error)=>{
+        (error) => {
             res.status(500).json({
-                msg:"error a pasar datos"
+                msg: "error a pasar datos"
             });
         })
+}
+const createRaqueta = async (req = request, res = response) => {
+
+    const { title, price, category, description, image } = req.body;
+
+    try {
+        const newRaqueta = new Raqueta({ title, price, category, description, image });
+        await newRaqueta.save();
+
+        res.status(201).json({ message: 'Raqueta saved successfully' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-const createRaqueta = (req = request, res = response) => {
+};
 
-            const newRaqueta= Raqueta({
-                id,
-                title,
-                price,
-                category,
-                description,
-                image,
-            });
-            newRaqueta.save().then((result)=>{
-                 res.status(200).json({
-                 msg: "Success"
-            });
-        
-            }).catch((error)=>{
-                res.status(500).json({
-                        msg:"error a pasar datos"
-                    });
-            })
-           
-        };
-
-
-module.exports={getAllRaquetas, createRaqueta}
+module.exports = { 
+    getAllRaquetas, 
+    createRaqueta 
+}

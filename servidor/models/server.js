@@ -10,7 +10,6 @@ class Server {
         this.raquetasPath = "/api/raquetas";
         this.gorrasPath = "/api/gorras";
 
-
         this.middelware();
         this.routes();
         this.db();
@@ -18,7 +17,7 @@ class Server {
 
     routes() {
         this.app.use(this.raquetasPath, require("../routes/raqueta"));
-        this.app.use(this.raquetasPath, require("../routes/gorras"));
+        this.app.use(this.gorrasPath, require("../routes/gorras"));
     }
     db() {
         mongoose.connect(this.connectionString).then(
@@ -36,7 +35,7 @@ class Server {
 
     middelware() {
         this.app.use(express.json());
-        this.app.use(cors())
+        this.app.use(cors());
     }
 
     listen() {
