@@ -1,0 +1,21 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card p-3">
+                    <h2>Regístrate</h2>
+                    <hr>
+                    <form (ngSubmit)="signUp()">
+                        <div class="form-group mb-3">
+                            <input type="text" name="email" class="form-control" [(ngModel)]="newUser.email" placeholder="Correo electrónico">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="password" name="password" class="form-control" [(ngModel)]="newUser.password" placeholder="Contraseña">
+                        </div>
+                        <button class="btn btn-dark">
+                            Regístrate <i class="fa-solid fa-right-to-bracket"></i>
+                        </button>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
