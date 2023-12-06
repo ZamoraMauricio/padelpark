@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="title">Favoritos de raquetas</div>
+  <div class="favs">
+    <div class="card" *ngFor="let raqueta of favsRaq">
+      <img src="{{ raqueta.image }}" class="card-img-top" alt="Gorra Image">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title mb-auto"><b>Name:</b> {{ raqueta.title }}</h5>
+        <hr>
+        <p class="card-text"><b>Price:</b> {{ raqueta.price }}</p>
+        <p class="card-text"><b>Category:</b> {{ raqueta.category }}</p>
+        <p class="card-text"><b>Description:</b> {{ raqueta.description }}</p>
+        <hr>
+        <button class="btn btn-danger" (click)="removeFav(raqueta._id, 'raqueta')"><i
+            class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="container">
+  <div class="title">Favoritos de gorras</div>
+  <div class="favs">
+    <div class="card" *ngFor="let gorra of favsGo">
+      <img src="{{ gorra.image }}" class="card-img-top" alt="Gorra Image">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title mb-auto"><b>Name:</b> {{ gorra.title }}</h5>
+        <hr>
+        <p class="card-text"><b>Price:</b> {{ gorra.price }}</p>
+        <p class="card-text"><b>Category:</b> {{ gorra.category }}</p>
+        <p class="card-text"><b>Description:</b> {{ gorra.description }}</p>
+        <hr>
+        <button class="btn btn-danger" (click)="removeFav(gorra._id, 'gorra')"><i
+            class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+
+  </div>
+
+</div>

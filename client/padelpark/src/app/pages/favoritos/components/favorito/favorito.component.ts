@@ -20,23 +20,5 @@ export class FavoritoComponent{
 
   constructor(private favService: FavoritoService) { }
 
-  onDeleteClick(_id: string) {
-    this.favService.deleteFavById(_id).subscribe({
-      next: (response: any) => {
-        console.log(response);
-
-        this.favService.getAllFavs().subscribe({
-          next: (response: any) => {
-            this.favService.favs = response;
-          },
-          error: (error: any) => {
-            console.log(error);
-          }
-        });
-      },
-      error: (error: any) => {
-        console.log(error);
-      }
-    });
-  }
+  
 }  

@@ -8,24 +8,27 @@ import { Favorito } from '../../../interfaces/favoritos';
 })
 export class FavoritoService {
 
-  public favs: Favorito[] = [];
+  public favs: any[] = [];
+  public ra: any[] = [];
+  public go: any[] = [];
 
   constructor(private http: HttpClient) { }
 
-  createFav(fav: Favorito): Observable<any> {
-    return this.http.post("http://localhost:8080/api/favoritos", fav);
+  getFavs(idUser: string): Observable<any> {
+    
+    return this.http.get(`http://localhost:8080/api/favoritos/${idUser}`);
   }
 
-  getAllFavs(): Observable<any> {
-    return this.http.get("http://localhost:8080/api/favoritos");
+  getFavsData(favsIds: string[]): Observable<any> {
+    return this.http.get(`http://localhost:8080/api/favoritos/data/${favsIds}`, );
   }
 
-  deleteFavById(id: string): Observable<any> {
-    return this.http.delete(`http://localhost:8080/api/favoritos/${id}`);
+  deleteFavorite(item: { idUser: string; idProduct: string, category: String }): Observable<any> {
+    console.log(item);
+    return this.http.delete(`http://localhost:8080/api/favoritos/`, {body:item});
   }
 
-  getFavById(id: string): Observable<any> {
-    return this.http.get(`http://localhost:8080/api/favoritos/${id}`);
-  }
+
+ 
 
 }

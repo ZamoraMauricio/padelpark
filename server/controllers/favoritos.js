@@ -1,5 +1,7 @@
 const { request, response } = require("express");
 const Favorito = require("../models/favorito");
+const Raqueta = require("../models/raqueta");
+const Gorra = require("../models/gorras");
 
 // const getAllGorras = async (req, res) => {
 //     try {
@@ -43,6 +45,36 @@ const deleteFav = (req = request, res = response) => {
         res.status(200).json(message = "Favorito eliminado");
 
     }).catch((err) => res.status(500).json({ error: err.message }));
+}
+
+const getFavsByIds = async(req = request, res = response) => {
+    const { ids } = req.params;
+
+    const idArray = ids.split(',');
+
+    const favoritosList = [];
+
+    await Raqueta.find({ _id: { $in: idArray } }).then((favoritos) => {
+        favoritosList.push(favoritos);
+        console.log(favoritosList);
+    })
+
+    await Gorra.find({ _id: { $in: idArray } }).then((favoritos) => {
+        favoritosList.push(favoritos);
+    })
+    console.log(favoritosList);
+
+    if (favoritosList.length > 0) {
+        return res.status(200).json(favoritosList);
+    } else {
+        console.log("Favoritos not found");
+        return res.status(404).json({ message: "Favoritos not found" });
+    }
+
+
+
+
+
 }
 
 // const deleteGorraById = async (req, res) => {
@@ -108,4 +140,5 @@ module.exports = {
     createFav,
     getFavs,
     deleteFav,
+    getFavsByIds
 }
