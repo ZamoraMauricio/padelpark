@@ -35,4 +35,8 @@ export class GorrasService {
 
     return this.http.put(`http://localhost:8080/api/gorras/${gorraId}`, gorraSinId);
   }
+
+  saveFav(item: { idUser: string; idProduct: string, category: String }): Observable<any> {
+    return this.http.post("http://localhost:8080/api/favoritos", item);
+  }
 }

@@ -10,6 +10,7 @@ import { GorrasService } from '../../services/gorras.service';
 export class GorraListComponent {
 
   selectedGorraId: string | null = null;
+  currentUser: string = "";
 
   public newGorra: Gorra = {
     _id: "",
@@ -108,6 +109,8 @@ export class GorraListComponent {
       );
     }
   }
+
+  
 
   public updateGorra(): void {
     console.log(this.newUpdateGorra);

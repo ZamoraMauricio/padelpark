@@ -17,8 +17,17 @@ export class GorraComponent {
     description: "",
     image: ""
   }
+  currentUser: string = "";
 
-  constructor(private gorrasService: GorrasService) { }
+  constructor(private gorrasService: GorrasService) {
+    const token = localStorage.getItem('Authorization');
+    if(!token){
+      return;
+    }
+    const tokenData = JSON.parse(atob(token.split('.')[1]));
+    this.currentUser = tokenData.id;
+    console.log(this.currentUser);
+   }
 
   onDeleteClick(_id: string) {
     this.gorrasService.deleteGorraById(_id).subscribe({
@@ -38,5 +47,18 @@ export class GorraComponent {
         console.log(error);
       }
     });
+  }
+
+  public addToFav(idUser: string, idProduct:string, category: String): void {
+    this.gorrasService.saveFav({idUser, idProduct, category}).subscribe(
+      {
+        next: (response: any) => {
+          console.log(response);
+        },
+        error: (error: any) => {
+          console.log(error);
+        }
+      }
+    );
   }
 }  

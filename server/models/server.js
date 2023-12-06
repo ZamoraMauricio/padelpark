@@ -6,11 +6,12 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
-        this.connectionString =process.env.CONNECTION_STRING;
+        this.connectionString = process.env.CONNECTION_STRING;
 
         this.authPath = "/api/auth";
         this.raquetasPath = "/api/raquetas";
         this.gorrasPath = "/api/gorras";
+        this.favPath = "/api/favoritos";
 
         this.middelware();
         this.routes();
@@ -21,14 +22,15 @@ class Server {
         this.app.use(this.authPath, require("../routes/users"));
         this.app.use(this.raquetasPath, require("../routes/raqueta"));
         this.app.use(this.gorrasPath, require("../routes/gorras"));
+        this.app.use(this.favPath, require("../routes/favoritos"));
     }
     db() {
         mongoose.connect(this.connectionString).then(
-            () =>{
+            () => {
                 console.log("db connection established")
             }
         ).catch(
-            (error)=>{
+            (error) => {
                 console.log("db connection error")
                 console.log(error)
             }

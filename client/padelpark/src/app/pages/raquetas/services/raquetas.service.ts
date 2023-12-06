@@ -9,8 +9,18 @@ import { Raqueta } from 'src/app/interfaces/raqueta';
 export class RaquetasService {
 
   public raquetas: Raqueta[] = [];
+  public favs: any[] = [];
 
   constructor(private http: HttpClient) { }
+
+  getFavs(idUser: string): Observable<any> {
+    return this.http.get(`http://localhost:8080/api/favoritos/${idUser}`);
+  }
+
+  deleteFavorite(item: { idUser: string; idProduct: string, category: String }): Observable<any> {
+    console.log(item);
+    return this.http.delete(`http://localhost:8080/api/favoritos/`, {body:item});
+  }
 
   createRaqueta(raqueta: Raqueta): Observable<any> {
     return this.http.post("http://localhost:8080/api/raquetas", raqueta);
@@ -34,5 +44,9 @@ export class RaquetasService {
     const { _id, ...raquetaSinId } = raqueta;
 
     return this.http.put(`http://localhost:8080/api/raquetas/${raquetaId}`, raquetaSinId);
+  }
+
+  saveFav(item: { idUser: string; idProduct: string, category: String }): Observable<any> {
+    return this.http.post("http://localhost:8080/api/favoritos", item);
   }
 }

@@ -16,6 +16,7 @@ import { AuthGuard } from './auth.guard';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
+import { FavoritosModule } from './pages/favoritos/favoritos.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FooterComponent } from './components/footer/footer.component';
     GorrasModule,
     RaquetasModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FavoritosModule
     
   ],
   providers: [

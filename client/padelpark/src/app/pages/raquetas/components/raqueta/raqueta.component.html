@@ -1,14 +1,17 @@
 <div class="card h-100">
-    <img src="{{ raqueta.image }}" class="card-img-top" alt="raqueta Image">
-    <div class="card-body d-flex flex-column">
-        <h5 class="card-title mb-auto"><b>Name:</b> {{ raqueta.title }}</h5>
-        <hr>
-        <p class="card-text"><b>Price:</b> {{ raqueta.price}}</p>
-        <p class="card-text"><b>Category:</b> {{ raqueta.category }}</p>
-        <p class="card-text"><b>Description:</b> {{ raqueta.description }}</p>
-        <hr>
-        <button class="btn btn-danger" (click)="onDeleteClick(raqueta._id)"><i class="fa-solid fa-trash"></i></button>
-        <br>
-        <button class="btn btn-primary" (click)="onDeleteClick(raqueta._id)"> Añadir a favoritos<i class="fa-solid fa"></i></button>
-    </div>
+  <img src="{{ raqueta.image }}" class="card-img-top" alt="raqueta Image">
+  <div class="card-body d-flex flex-column">
+    <h5 class="card-title mb-auto"><b>Name:</b> {{ raqueta.title }}</h5>
+    <hr>
+    <p class="card-text"><b>Price:</b> {{ raqueta.price }}</p>
+    <p class="card-text"><b>Category:</b> {{ raqueta.category }}</p>
+    <p class="card-text"><b>Description:</b> {{ raqueta.description }}</p>
+    <hr>
+    <button class="btn btn-danger" (click)="onDeleteClick(raqueta._id)"><i class="fa-solid fa-trash"></i></button>
+    <br>
+    <button class="btn btn-primary" *ngIf="!isFav(raqueta._id)" (click)="addToFav(currentUser, raqueta._id, 'raqueta')">
+      Añadir a favoritos<i class="fa-solid fa"></i></button>
+    <button class="btn btn-Secondary" *ngIf="isFav(raqueta._id)" (click)="removeFav( raqueta._id)">Quitar de favoritos<i
+        class="fa-solid fa"></i></button>
+  </div>
 </div>
