@@ -27,6 +27,7 @@ export class GorraComponent {
     const tokenData = JSON.parse(atob(token.split('.')[1]));
     this.currentUser = tokenData.id;
     console.log(this.currentUser);
+    this.getFavs();
    }
 
   onDeleteClick(_id: string) {
@@ -54,6 +55,45 @@ export class GorraComponent {
       {
         next: (response: any) => {
           console.log(response);
+          window.location.reload();
+        },
+        error: (error: any) => {
+          console.log(error);
+        }
+      }
+    );
+  }
+
+  getFavs(): any {
+    this.gorrasService.getFavs(this.currentUser).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.gorrasService.favs = response;
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+
+  }
+
+  isFav(id: string): boolean {
+    const favs = this.gorrasService.favs;
+    const fav = favs.find((fav: any) => fav.idProduct === id);
+    return fav ? true : false;
+  }
+
+  removeFav(id: string): void {
+    const fav = {
+      idUser: this.currentUser,
+      idProduct: id,
+      category: "raqueta"
+    }
+    this.gorrasService.deleteFavorite(fav).subscribe(
+      {
+        next: (response: any) => {
+          console.log(response);
+          window.location.reload();
         },
         error: (error: any) => {
           console.log(error);

@@ -9,8 +9,18 @@ import { Gorra } from '../../../interfaces/gorra';
 export class GorrasService {
 
   public gorras: Gorra[] = [];
+  public favs: any[] = [];
 
   constructor(private http: HttpClient) { }
+
+  getFavs(idUser: string): Observable<any> {
+    return this.http.get(`http://localhost:8080/api/favoritos/${idUser}`);
+  }
+
+  deleteFavorite(item: { idUser: string; idProduct: string, category: String }): Observable<any> {
+    console.log(item);
+    return this.http.delete(`http://localhost:8080/api/favoritos/`, {body:item});
+  }
 
   createGorra(gorra: Gorra): Observable<any> {
     return this.http.post("http://localhost:8080/api/gorras", gorra);
